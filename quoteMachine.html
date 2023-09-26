@@ -1,11 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Random Quote Mahine</title>
+  <!-- Tus enlaces a CSS y JavaScript -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./quoteMachine.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Hi!!</h1>
+  <div id="wrapper">
+    <div id="quote-box">
+      <div id="quote-text">
+        <p id="text">La perseverancia es el motor que convierte el sueño en realidad en la fábrica de la realidad.</p>
+      </div>
+      <div id="quote-autor">
+        <p id="author">Denis Waitley</p>
+      </div>
+      <div class="buttons">
+        <a class="button" id="tweet-quote" title="Tweet this quote!" target="_top" href="https://twitter.com/intent/tweet?hashtags=quotes&amp;related=freecodecamp&amp;text=%22It%20does%20not%20matter%20how%20slowly%20you%20go%20as%20long%20as%20you%20do%20not%20stop.%22%20Confucius">
+          <i style='font-size:20px' class='fab'>&#xf099;</i>
+        </a>
+        <a class="button" id="tumblr-quote" title="my LinkedIn!" target="_blank" href="www.linkedin.com/in/marco-antonio-p-2a003318b">
+          <i style='font-size:20px' class='fab'>&#xf174;</i>
+        </a>
+        <button id="new-quote"> New quote</button>
+      </div>
+    </div>
+    <div class="footer"></div>
+  </div>
+
+  <script>
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max) + 1;
+    }
+
+    const phrasesObj = {
+      1: ['El éxito es la suma de pequeños esfuerzos repetidos día tras día.', 'Robert Collier'],
+      2: ['El único modo de hacer un gran trabajo es amar lo que haces.', 'Steve Jobs'],
+      3: ['No importa lo lento que vayas, siempre y cuando no te detengas.', 'Confucio'],
+      4: ['La perseverancia es el motor que convierte el sueño en realidad en la fábrica de la realidad.', 'Denis Waitley'],
+      5: ['La suerte es lo que sucede cuando la preparación se encuentra con la oportunidad.', 'Seneca'],
+      6: ['El futuro pertenece a quienes creen en la belleza de sus sueños.', 'Eleanor Roosevelt'],
+      7: ['El único límite para nuestros logros de mañana será nuestras dudas de hoy.', 'Franklin D. Roosevelt'],
+      8: ['Nuestra mayor gloria no está en no caer nunca, sino en levantarnos cada vez que caemos.', 'Confucio'],
+      9: ['El éxito es cuestión de mantenerse firme en la dirección que uno ha elegido.', 'Johnny Cash'],
+      10: ['La vida es lo que pasa mientras estás ocupado haciendo otros planes.', 'John Lennon'],
+      11: ['El trabajo duro vence al talento cuando el talento no trabaja duro.', 'Tim Notke'],
+      12: ['La única forma de hacer un trabajo genial es amar lo que haces.', 'Steve Jobs'],
+      13: ['No importa cuántas veces fracases, debes seguir adelante y nunca darte por vencido.', 'Richard Branson'],
+      14: ['Los obstáculos no pueden detenerte. Los problemas no pueden detenerte. La gente no puede detenerte. Solo tú puedes detenerte a ti mismo.', 'Jeffrey Gitomer'],
+      15: ['El éxito no es la clave de la felicidad. La felicidad es la clave del éxito. Si amas lo que haces, tendrás éxito.', 'Albert Schweitzer'],
+      16: ['Nunca es demasiado tarde para ser lo que podrías haber sido.', 'George Eliot'],
+      17: ['La confianza en uno mismo es el primer secreto del éxito.', 'Ralph Waldo Emerson'],
+      18: ['El secreto de salir adelante es comenzar.', 'Mark Twain'],
+      19: ['El éxito es la capacidad de ir de un fracaso a otro sin perder entusiasmo.', 'Winston Churchill'],
+      20: ['La oportunidad no golpea dos veces a la misma puerta.', 'Proverbio Griego'],
+      21: ['El aprendizaje es un tesoro que seguirá a su dueño en cualquier lugar.', 'Proverbio Chino'],
+      22: ['Cada logro comienza con la decisión de intentarlo.', 'John F. Kennedy'],
+      23: ['La verdadera medida de un hombre no se encuentra en la forma en que se comporta en momentos de comodidad y conveniencia, sino en la forma en que se mantiene en tiempos de desafío y controversia.', 'Martin Luther King Jr.'],
+      24: ['No tienes que ser grande para empezar, pero tienes que empezar para ser grande.', 'Zig Ziglar']
+    };
+
+    const myObj = {
+      1: '#3498db',
+      2: '#e74c3c',
+      3: '#2ecc71',
+      4: '#9b59b6',
+      5: '#f1c40f',
+      6: '#1abc9c',
+      7: '#e67e22',
+      8: '#27ae60',
+      9: '#2980b9',
+      10: '#c0392b',
+      11: '#16a085',
+      12: '#8e44ad',
+      13: '#f39c12',
+      14: '#3498db',
+      15: '#e74c3c',
+      16: '#2ecc71',
+      17: '#9b59b6',
+      18: '#f1c40f',
+      19: '#1abc9c',
+      20: '#e67e22',
+      21: '#27ae60',
+      22: '#2980b9',
+      23: '#c0392b',
+      24: '#16a085'
+    };
+
+    const selectedBackColorObj= {
+      1:"#808080",
+      2: "#00FFFF",
+      3: "#FF00FF"
+    };
+
+    $(document).ready(function() {
+      let previousIndex = 0; // Variable para almacenar el índice de la cita anterior
+
+      $("#new-quote").click(function() {
+        let randomIndex;
+        
+        // Generar un nuevo índice de forma aleatoria que no sea igual al anterior
+        do {
+          randomIndex = getRandomInt(24);
+        } while (randomIndex === previousIndex);
+
+        previousIndex = randomIndex; // Almacenar el nuevo índice como el anterior
+
+        let selectedColor = myObj[randomIndex];
+        let selectedPhras = phrasesObj[randomIndex];
+        let selectedBackColor = selectedBackColorObj[randomIndex];
+        
+        $("body").css("background-color", selectedColor);
+        $("#quote-text").html("<i style='font-size:24px' class='fas'>&#xf10d;</i><span id='text'>" + selectedPhras[0] + "</span>").css("color", selectedColor);
+        $("#quote-autor").html("<span id='author'>" + selectedPhras[1] + "</span>").css("color", selectedColor);
+        $("#quote-box").css("background-color", "white");
+        $("#new-quote").css("background-color", selectedColor);
+        $("a").css("background-color", selectedColor);
+      });
+    });
+  </script>
 </body>
 </html>
